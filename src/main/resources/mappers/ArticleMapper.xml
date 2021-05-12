@@ -5,7 +5,7 @@
 <mapper namespace="com.easystar.dao.ArticleDao">
     <!-- 这里namespace必须是UserMapper接口的路径” -->
     <insert id="insertArticle" useGeneratedKeys="true" parameterType="Article">
-        insert into tb_article(title,src_path,content,create_date) values(#{title},#{srcPath},#{content},#{createDate})
+        insert into tb_article(title,src_path,content,create_date,file_name,icon) values(#{title},#{srcPath},#{content},#{createDate},#{fileName},#{icon})
         <!-- 这里sql结尾不能加分号，否则报“ORA-00911”的错误 -->
     </insert>
 

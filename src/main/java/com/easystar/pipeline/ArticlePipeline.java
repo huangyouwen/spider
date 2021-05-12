@@ -27,23 +27,26 @@ public class ArticlePipeline implements Pipeline {
             SqlSession sqlSession = SpiderApplication.sqlSessionFactory.openSession();
             try {
                 ArticleDao articleDao = sqlSession.getMapper(ArticleDao.class);
-
+                String fileName  = System.currentTimeMillis() + ".html";
                 Article article = new Article();
                 article.setCreateDate(new Date());
                 article.setContent(resultItems.get("content"));
                 article.setSrcPath(resultItems.getRequest().getUrl());
                 article.setTitle(resultItems.get("title"));
+                article.setIcon(resultItems.get("icon"));
+                article.setFileName(fileName);
                 Article temp = articleDao.getArticleByTitle(title);
                 if(temp == null) {
                     SpiderApplication.isModifyIndex = true;
                     Map<String,Article> map = new HashMap<>();
                     Template template = SpiderApplication.configuration.getTemplate("article.ftl");
                     map.put("article",article);
-                    File file = new File("d://spider//"+System.currentTimeMillis()+".html");
+                    File file = new File("d://spider//"+fileName);
                     FileWriter fileWriter = new FileWriter(file);
                     template.process(map,fileWriter);
                     fileWriter.close();
-                    SpiderApplication.ftpCli.uploadFileToDailyDir(file.getName(), new FileInputStream(file));
+                    if(SpiderApplication.isUploadFtp)
+                        SpiderApplication.ftpCli.uploadFileToDailyDir(fileName, new FileInputStream(file));
                     file.delete();
                     articleDao.insertArticle(article);
                     sqlSession.commit();// 这里一定要提交，不然数据进不去数据库中

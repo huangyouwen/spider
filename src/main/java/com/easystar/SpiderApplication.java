@@ -30,6 +30,7 @@ public class SpiderApplication {
     public static Configuration configuration = null;
     public static FtpCli ftpCli = null;
     public static boolean isModifyIndex = false;
+    public static boolean isUploadFtp = true;
     static {
         sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
         configuration = new Configuration(Configuration.getVersion());
@@ -52,7 +53,8 @@ public class SpiderApplication {
             File file = new File("D://spider//index.html");
             map.put("articles",list);
             template.process(map,new FileWriter(file));
-            SpiderApplication.ftpCli.uploadFileToDailyDir(file.getName(), new FileInputStream(file));
+            if(isUploadFtp)
+                SpiderApplication.ftpCli.uploadFileToDailyDir(file.getName(), new FileInputStream(file));
         } catch (IOException | TemplateException e) {
             e.printStackTrace();
         }

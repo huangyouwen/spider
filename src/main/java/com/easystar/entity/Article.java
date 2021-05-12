@@ -8,6 +8,8 @@ public class Article {
     private String content;
     private String srcPath;
     private Date createDate;
+    private String fileName;
+    private String icon;
 
     public long getId() {
         return id;
@@ -47,5 +49,21 @@ public class Article {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

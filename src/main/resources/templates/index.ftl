@@ -19,7 +19,24 @@
 <div class="container">
     <h2>金马在线</h2>
     <#list articles as article>
-        <div class="panel panel-info">${article.title}</div>
+        <div class="panel panel-info">
+<#--            <div class="box">-->
+<#--                <#if article.icon != null>-->
+<#--                    <div class="item"></div>-->
+<#--                </#if>-->
+<#--                <div class="item">-->
+<#--                    -->
+<#--                </div>-->
+<#--            </div>-->
+            <div class="row">
+                <#if article.icon != null>
+                <div class="col-md-2"><img src="${article.icon}"></div>
+                <div class="col-md-10"><div><a href="${article.fileName}" target="_blank"><h3>${article.title}</h3></a></div><div>${article.createDate?string('yyyy-MM-dd HH:mm:ss')}</div></div>
+                <#else>
+                <div class="col-md-12"><div><a href="${article.fileName}" target="_blank"><h3>${article.title}</h3></a></div><div>${article.createDate?string('yyyy-MM-dd HH:mm:ss')}</div></div>
+                </#if>
+            </div>
+        </div>
     </#list>
 
 </div>
