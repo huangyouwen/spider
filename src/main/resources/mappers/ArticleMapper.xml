@@ -5,12 +5,20 @@
 <mapper namespace="com.easystar.dao.ArticleDao">
     <!-- 这里namespace必须是UserMapper接口的路径” -->
     <insert id="insertArticle" useGeneratedKeys="true" parameterType="Article">
-        insert into tb_article(title,src_path) values(#{title},#{srcPath})
+        insert into tb_article(title,src_path,content,create_date) values(#{title},#{srcPath},#{content},#{createDate})
         <!-- 这里sql结尾不能加分号，否则报“ORA-00911”的错误 -->
     </insert>
 
     <!-- 这里的id必须和UserMapper接口中的接口方法名相同 -->
-    <select id="getArticle" resultType="Article" parameterType="java.lang.String">
-        select * from tb_article where name=#{name}
+    <select id="getArticle" resultType="Article" parameterType="java.lang.Long">
+        select * from tb_article where id=#{id}
+    </select>
+
+    <select id="getArticleByTitle" resultType="Article" parameterType="java.lang.String">
+        select * from tb_article where title = #{title}
+    </select>
+
+    <select id="findArticlesByLastMonth" resultType="Article">
+        select * from tb_article where DATE_SUB(CURDATE(), INTERVAL 1 MONTH) <![CDATA[<= ]]> date(create_date)
     </select>
 </mapper>
