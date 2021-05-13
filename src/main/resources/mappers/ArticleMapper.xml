@@ -19,6 +19,6 @@
     </select>
 
     <select id="findArticlesByLastMonth" resultType="Article">
-        select * from tb_article where DATE_SUB(CURDATE(), INTERVAL 1 MONTH) <![CDATA[<= ]]> date(create_date)
+        select * from tb_article where DATE_SUB(CURDATE(), INTERVAL 1 MONTH) <![CDATA[<= ]]> date(create_date) order by id desc
     </select>
 </mapper>
