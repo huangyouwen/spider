@@ -41,7 +41,7 @@ public class ArticlePipeline implements Pipeline {
                     Map<String,Article> map = new HashMap<>();
                     Template template = SpiderApplication.configuration.getTemplate("article.ftl");
                     map.put("article",article);
-                    File file = new File("d://spider//"+fileName);
+                    File file = new File("D://Spider//"+fileName);
                     FileWriter fileWriter = new FileWriter(file);
                     template.process(map,fileWriter);
                     fileWriter.close();

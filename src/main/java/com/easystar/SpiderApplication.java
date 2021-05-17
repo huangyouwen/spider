@@ -50,7 +50,7 @@ public class SpiderApplication {
             Template template = SpiderApplication.configuration.getTemplate("index.ftl");
             ArticleDao articleDao = sqlSession.getMapper(ArticleDao.class);
             List<Article> list = articleDao.findArticlesByLastMonth();
-            File file = new File("D://spider//index.html");
+            File file = new File("D://Spider//index.html");
             map.put("articles",list);
             template.process(map,new FileWriter(file));
             if(isUploadFtp)
