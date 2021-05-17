@@ -6,6 +6,7 @@ import com.easystar.entity.Article;
 import com.easystar.pipeline.ArticleDaoPipeline;
 import com.easystar.pipeline.ArticlePipeline;
 import com.easystar.utils.FtpCli;
+import com.easystar.utils.HttpUtil;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -31,6 +32,7 @@ public class SpiderApplication {
     public static FtpCli ftpCli = null;
     public static boolean isModifyIndex = false;
     public static boolean isUploadFtp = true;
+    public static HttpUtil httpUtil = null;
     static {
         sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
         configuration = new Configuration(Configuration.getVersion());
@@ -40,7 +42,7 @@ public class SpiderApplication {
         configuration.setClassicCompatible(true);
         configuration.setDateTimeFormat("yyyy-MM-dd HH:mm:ss");
         ftpCli = FtpCli.createFtpCli("39.106.226.161","wh-nb2tcpf0eofuq2yj91x","Geobim123");
-
+        httpUtil = new HttpUtil();
     }
 
     static void modifyIndex(){
@@ -50,7 +52,7 @@ public class SpiderApplication {
             Template template = SpiderApplication.configuration.getTemplate("index.ftl");
             ArticleDao articleDao = sqlSession.getMapper(ArticleDao.class);
             List<Article> list = articleDao.findArticlesByLastMonth();
-            File file = new File("D://Spider//index.html");
+            File file = new File("C://Program Files//Spider//index.html");
             map.put("articles",list);
             template.process(map,new FileWriter(file));
             if(isUploadFtp)
