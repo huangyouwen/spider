@@ -4,6 +4,7 @@ import com.easystar.dao.ArticleDao;
 import com.easystar.db.MyBatisUtils;
 import com.easystar.entity.Article;
 import com.easystar.pipeline.ArticlePipeline;
+import com.easystar.pipeline.ImagePipeline;
 import com.easystar.process.BaiduImageProcessor;
 import com.easystar.process.BaiduTopProcessor;
 import com.easystar.utils.FtpCli;
@@ -83,8 +84,10 @@ public class SpiderApplication {
 //            }
 //        },1000,1000*60*60*2);
         System.setProperty("selenuim_config", "D:\\Spider\\config.ini");
-        Spider.create(new BaiduImageProcessor()).
-                addUrl("https://image.baidu.com/search/index?ct=201326592&z=9&tn=baiduimage&word=%E5%85%B3%E6%99%93%E5%BD%A4%E5%86%99%E7%9C%9F%E7%85%A7%E7%89%87&pn=0&ie=utf-8&oe=utf-8&cl=2&lm=-1&fr=ala&se=&sme=&width=0&height=0")
+        Spider.create(new BaiduImageProcessor())
+                .addPipeline(new ImagePipeline())
+                .addUrl("https://image.baidu.com/search/index?ct=201326592&z=9&tn=baiduimage&word=%E5%85%B3%E6%99%93%E5%BD%A4%E5%86%99%E7%9C%9F%E7%85%A7%E7%89%87&pn=0&ie=utf-8&oe=utf-8&cl=2&lm=-1&fr=ala&se=&sme=&width=0&height=0")
+
                 .setDownloader(new SeleniumDownloader("D:\\Spider\\chromedriver.exe").setSleepTime(1000)).run();
 
 

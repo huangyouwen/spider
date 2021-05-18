@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easystar.dao.ImageConfigDao">
+    <!-- 这里namespace必须是UserMapper接口的路径” -->
+    <insert id="insertImageConfig" useGeneratedKeys="true" parameterType="Image">
+        insert into tb_Image_config(name,cn_name,create_date,index_path) values(#{name},#{cn_name},#{createDate},#{indexPath})
+        <!-- 这里sql结尾不能加分号，否则报“ORA-00911”的错误 -->
+    </insert>
+
+    <!-- 这里的id必须和UserMapper接口中的接口方法名相同 -->
+    <select id="getImageConfigByName" resultType="ImageConfig" parameterType="java.lang.String">
+        select * from tb_image_config where name=#{name}
+    </select>
+
+    <select id="all" resultType="ImageConfig">
+        select * from tb_image_config
+    </select>
+
+</mapper>
