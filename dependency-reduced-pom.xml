@@ -5,7 +5,7 @@
   <artifactId>spider</artifactId>
   <name>spider</name>
   <version>1.0-SNAPSHOT</version>
-  <url>http://www.example.com</url>
+  <url>http://www.jinma-online.cn</url>
   <build>
     <pluginManagement>
       <plugins>

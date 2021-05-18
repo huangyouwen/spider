@@ -7,7 +7,7 @@ public class ImageConfig {
     private String name;
     private String cnName;
     private Date createDate;
-    private String index_path;
+    private String indexPath;
 
     public Long getId() {
         return id;
@@ -41,11 +41,11 @@ public class ImageConfig {
         this.createDate = createDate;
     }
 
-    public String getIndex_path() {
-        return index_path;
+    public String getIndexPath() {
+        return indexPath;
     }
 
-    public void setIndex_path(String index_path) {
-        this.index_path = index_path;
+    public void setIndexPath(String indexPath) {
+        this.indexPath = indexPath;
     }
 }

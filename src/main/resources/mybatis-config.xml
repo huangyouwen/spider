@@ -12,6 +12,8 @@
     </settings>
     <typeAliases>
         <typeAlias alias="Article" type="com.easystar.entity.Article"/>
+        <typeAlias alias="ImageConfig" type="com.easystar.entity.ImageConfig"/>
+        <typeAlias alias="Image" type="com.easystar.entity.Image"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -26,5 +28,7 @@
     </environments>
     <mappers>
         <mapper resource="mappers/ArticleMapper.xml" />
+        <mapper resource="mappers/ImageConfigMapper.xml" />
+        <mapper resource="mappers/ImageMapper.xml" />
     </mappers>
 </configuration>
