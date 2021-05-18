@@ -1,4 +1,4 @@
-package com.easystar;
+package com.easystar.process;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;

@@ -50,7 +50,8 @@ public class ArticlePipeline implements Pipeline {
                     file.delete();
                     articleDao.insertArticle(article);
                     sqlSession.commit();// 这里一定要提交，不然数据进不去数据库中
-                    SpiderApplication.httpUtil.pushPost("http://www.jinma-online/"+fileName,"www.jinma-online.cn","lChtly1kuRQ9ATD8");
+                    String str = SpiderApplication.httpUtil.pushPost("http://www.jinma-online.cn/"+fileName,"www.jinma-online.cn","lChtly1kuRQ9ATD8");
+                    System.out.println(str);
                 }
             }catch (TemplateException e){
                 e.printStackTrace();

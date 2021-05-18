@@ -23,6 +23,7 @@
         <a href="https://beian.miit.gov.cn" target="_blank">湘ICP备2021008098号-1</a>
     </div>
 </footer>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 </body>
 </html>
