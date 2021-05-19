@@ -12,78 +12,60 @@
   <meta name="keywords" content="金马学习">
   <meta name="description" content="金马学习">
   <title>首页</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="common.css" />
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <!-- <link rel="stylesheet" href="common.css" />
   <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 </head>
-<script>
-  $(document).ready(function () {
-    $('ul.nav > li > a').click(function (e) {
-      debugger;
-      e.preventDefault();
-      $(this).tab('show')
-      // $('ul.nav > li').removeClass('active');
-      // $(this).addClass('active');
-    });
-  });
-</script>
 
 <body>
+  <div id="app">
+    <el-menu
+  :default-active="activeIndex2"
+  class="el-menu-demo"
+  mode="horizontal"
+  @select="handleSelect"
+  background-color="#545c64"
+  text-color="#fff"
+  active-text-color="#ffd04b">
+  <el-menu-item index="1">处理中心</el-menu-item>
+  <el-submenu index="2">
+    <template slot="title">我的工作台</template>
+    <el-menu-item index="2-1">选项1</el-menu-item>
+    <el-menu-item index="2-2">选项2</el-menu-item>
+    <el-menu-item index="2-3">选项3</el-menu-item>
+    <el-submenu index="2-4">
+      <template slot="title">选项4</template>
+      <el-menu-item index="2-4-1">选项1</el-menu-item>
+      <el-menu-item index="2-4-2">选项2</el-menu-item>
+      <el-menu-item index="2-4-3">选项3</el-menu-item>
+    </el-submenu>
+  </el-submenu>
+  <el-menu-item index="3" disabled>消息中心</el-menu-item>
+  <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
+</el-menu>
 
-  <div class="navbar navbar-inverse navbar-fixed-top" id="menu-nav">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <!-- sr-only仅阅读器能见实际不会呈现在页面上 -->
-          <span class="sr-only">切换导航</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">今马学习</a>
-      </div>
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li class="active"><a >新闻</a></li>
-          <li><a >图片</a></li>
-          <li><a>小说</a></li>
-          <li><a>关于</a></li>
-        </ul>
-      </div>
-    </div>
+   
   </div>
-  <div class="container content">
-    <div id="article" class="panel panel-primary">
-      <div class="panel-heading">新闻</div>
-      <div class="panel-body">
-        Panel content
-        afda
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-      </div>
-    </div>
-    <div id="image" class="panel panel-success">
-      <div class="panel-heading">图片</div>
-      <div class="panel-body">
-        Panel content<br /><br /><br /><br /><br /><br />
-      </div>
-    </div>
-
-    <div id="story" class="panel panel-info">
-      <div class="panel-heading">小说</div>
-      <div class="panel-body">
-        Panel content<br /><br /><br /><br /><br /><br /><br />
-      </div>
-    </div>
-
-  </div>
-  <footer id="about" class="footer">
-    <div class="container">
-      <a href="https://beian.miit.gov.cn" target="_blank">湘ICP备2021008098号-1</a>
-    </div>
-  </footer>
-
 </body>
-
-
+  <!-- import Vue before Element -->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <!-- import JavaScript -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: function() {
+        return {
+        activeIndex: '1',
+        activeIndex2: '1'
+      };
+      },
+    methods: {
+      handleSelect(key, keyPath) {
+        console.log(key, keyPath);
+      }
+    }
+    })
+  </script>
 </html>
