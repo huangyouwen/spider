@@ -1,0 +1,25 @@
+.panel{
+	padding: 10px;
+}
+.panel>.row>.col-md-2>img{
+	width:150px;
+	height:150px;
+}
+.panel>.row>.col-md-10>div{
+	padding: 5px 0px 20px 0px
+}
+img{
+	max-width:100%;
+}
+body{
+	font-size:20px;
+}
+.container>h1:first-child{
+	text-align: center;background: ghostwhite;padding: 20px 0px;margin: 5px 0px 50px 0px
+}
+.footer>.container{
+	text-align:center;
+}
+.content{
+	margin-top: 70px;
+}
