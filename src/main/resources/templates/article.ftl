@@ -49,6 +49,10 @@
 </style>
 <script>
     $(function () {
+        var ua = navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i) == "micromessenger") {
+            window.location.reload();
+        }
         $('body').scrollspy({target: '#bs-example-navbar-collapse-1'});
         $('[data-spy="scroll"]').each(function () {
             var $spy = $(this).scrollspy('refresh')

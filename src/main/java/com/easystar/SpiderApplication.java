@@ -66,8 +66,8 @@ public class SpiderApplication {
             List<Article> list = articleDao.query(15);
             ImageConfigDao imageConfigDao = sqlSession.getMapper(ImageConfigDao.class);
             List<ImageConfig> imageConfigs = imageConfigDao.all();
-            File file = new File("C://Program Files//Spider//index.html");
-//            File file = new File("D://Spider//index.html");
+//            File file = new File("C://Program Files//Spider//index.html");
+            File file = new File("D://Spider//index.html");
             map.put("articles", list);
             map.put("imageConfigs",imageConfigs);
             template.process(map, new FileWriter(file));
