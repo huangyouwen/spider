@@ -124,7 +124,7 @@ public class SpiderApplication {
                 }
 
             }
-        }, 1000, 1000 * 60 * 60 * 2);
+        }, 1000, 1000 * 60 * 60 * 4);
     }
 
     public static void syncImage(){
