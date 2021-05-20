@@ -50,11 +50,11 @@ public class SpiderApplication {
         configuration.setDateTimeFormat("yyyy-MM-dd HH:mm:ss");
         ftpCli = FtpCli.createFtpCli("39.106.226.161", "wh-nb2tcpf0eofuq2yj91x", "Geobim123");
         httpUtil = new HttpUtil();
-        try {
-            ftpCli.connect();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            ftpCli.connect();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public static void modifyIndex() {
@@ -111,12 +111,17 @@ public class SpiderApplication {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                try {
                     isModifyIndex = false;
+                    ftpCli.connect();
                     Spider.create(new BaiduTopProcessor()).addPipeline(new ArticlePipeline()).addUrl("http://top.baidu.com/").run();
                     if (isModifyIndex) {
                         modifyIndex();
                     }
                     ftpCli.disconnect();
+                } catch (IOException e) {
+
+                }
 
             }
         }, 1000, 1000 * 60 * 60 * 2);
