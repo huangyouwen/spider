@@ -8,14 +8,16 @@
     <meta name="viewport"
           content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1,viewport-fit=cover">
     <meta itemprop="dateUpdate" content="2021-05-18 17:33:31">
-    <meta name="title" content="首页">
-    <meta name="keywords" content="今马学习,新闻,女明星照片,女明星高清照片,小说">
-    <meta name="description" content="今马学习,新闻,女明星照片,女明星高清照片,小说">
-    <title>首页</title>
-    <link href="http://libs.baidu.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="common.css"/>
+    <meta name="title" content="${imageConfig.cnName}写真">
+    <meta name="keywords" content="今马学习,${imageConfig.cnName}写真,女明星照片,女明星高清照片">
+    <meta name="description" content="今马学习,${imageConfig.cnName}写真,女明星照片,女明星高清照片">
+    <title>${imageConfig.cnName}写真</title>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="./../viewerjs/viewer.min.css" rel="stylesheet"/>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="http://libs.baidu.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="./../viewerjs/viewer.min.js"></script>
 </head>
 <style>
     body {
@@ -48,16 +50,19 @@
         color: #999;
     }
 
-    .media img {
-        width: 64px;
-        height: 64px;
-    }
-    #image .list-group-item{
+    #viewer > li {
         display: inline;
-        border: none;
+        broder: none;
     }
-    #article{
-        font-size: 16px;
+    .thumbnail{
+        border: none;
+        padding:0px;
+    }
+    .thumbnail > img {
+        height: 180px;
+        display: inherit;
+        border: none;
+
     }
 </style>
 <script>
@@ -66,7 +71,24 @@
         $('[data-spy="scroll"]').each(function () {
             var $spy = $(this).scrollspy('refresh')
         })
-
+        new Viewer(document.getElementById("viewer"), {
+            toolbar: {
+                zoomIn: 4,
+                zoomOut: 4,
+                oneToOne: 4,
+                reset: 4,
+                prev: 4,
+                play: {
+                    show: 4,
+                    size: 'large',
+                },
+                next: 4,
+                rotateLeft: 4,
+                rotateRight: 4,
+                flipHorizontal: 4,
+                flipVertical: 4,
+            },
+        });
     })
 </script>
 
@@ -89,8 +111,9 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#article">新闻 <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#image">图片</a></li>
+                    <li class="active"><a href="#article">${imageConfig.cnName}写真 <span class="sr-only">(current)</span></a>
+                    </li>
+
                     <!-- <li><a href="#">小说</a></li> -->
                 </ul>
 
@@ -99,49 +122,15 @@
     </nav>
 </header>
 <div class="container">
-    <div class="panel panel-primary" name="article" id="article">
-        <div class="panel-heading">
-            <h3 class="panel-title">新闻</h3>
-        </div>
-        <div class="panel-body">
+    <ul id="viewer">
+        <#list  list as image>
+            <li class="list-group-item thumbnail"><img
+                        data-original="${image.path}"
+                        src="${image.path}"/>
+            </li>
+        </#list>
+    </ul>
 
-
-            <ul class="media-list">
-                <#list articles as article>
-
-                    <li class="media">
-                        <#if article.icon !=null>
-                            <div class="media-left">
-                                <a href="article/${article.fileName}">
-                                    <img class="media-object" src="${article.icon}"
-                                         alt="${article.title}">
-                                </a>
-                            </div>
-                        </#if>
-                        <div class="media-body">
-                            <h4 class="media-heading"> <a href="article/${article.fileName}">${article.title}</a></h4>
-                            ${article.createDate?string('yyyy-MM-dd HH:mm:ss')}
-                        </div>
-                    </li>
-
-                </#list>
-            </ul>
-
-
-        </div>
-    </div>
-    <div class="panel panel-success" name="image" id="image">
-        <div class="panel-heading">
-            <h3 class="panel-title">图片</h3>
-        </div>
-        <div class="panel-body">
-            <ul class="list-group">
-                <#list imageConfigs as imageConfig>
-                    <li class="list-group-item"><a  href="${imageConfig.name}/index.html">${imageConfig.cnName}</a></li>
-                </#list>
-            </ul>
-        </div>
-    </div>
 
 </div>
 <footer class="footer">

@@ -21,4 +21,8 @@
     <select id="findArticlesByLastMonth" resultType="Article">
         select * from tb_article where DATE_SUB(CURDATE(), INTERVAL 1 MONTH) <![CDATA[<= ]]> date(create_date) order by id desc
     </select>
+
+    <select id="query" resultType="Article" parameterType="java.lang.Integer">
+        select * from tb_article  order by id desc limit 0,#{limit}
+    </select>
 </mapper>

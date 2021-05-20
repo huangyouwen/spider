@@ -170,6 +170,16 @@ public class FtpCli {
         return DAILY_FILE_PATH + "/" + fileName;
     }
 
+    public String uploadFileToDailyDir(String dir,String fileName, InputStream inputStream) throws IOException {
+        changeWorkingDirectory(ftpBasePath);
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("/yyyy/MM/dd");
+//        String formatDatePath = dateFormat.format(new Date());
+//        String uploadDir = DAILY_FILE_PATH + formatDatePath;
+        makeDirs(dir);
+        storeFile(fileName, inputStream);
+        return dir + "/" + fileName;
+    }
+
     /**
      * <p>Description:[根据uploadFileToDailyDir返回的路径，从ftp下载文件到指定输出流中]</p>
      * Created on 2018/6/6

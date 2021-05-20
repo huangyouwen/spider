@@ -9,8 +9,8 @@
     content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1,viewport-fit=cover">
   <meta itemprop="dateUpdate" content="2021-05-18 17:33:31">
   <meta name="title" content="首页">
-  <meta name="keywords" content="今马学习">
-  <meta name="description" content="今马学习">
+  <meta name="keywords" content="今马学习,新闻,女明星照片,女明星高清照片,小说">
+  <meta name="description" content="今马学习,新闻,女明星照片,女明星高清照片,小说">
   <title>首页</title>
   <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="common.css" />
@@ -59,8 +59,8 @@
 </script>
 
 <body data-spy="scroll" data-target="#bs-example-navbar-collapse-1">
-  <header  id="top">
-    <nav class="navbar  navbar-inverse  navbar-fixed-top" >
+  <header id="top">
+    <nav class="navbar  navbar-inverse  navbar-fixed-top">
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -92,19 +92,25 @@
         <h3 class="panel-title">Panel title</h3>
       </div>
       <div class="panel-body">
-        Panel content
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <#list articles as article>
+          <div class="panel panel-info">
+
+            <div class="media">
+              <#if article.icon !=null>
+                <div class="media-left">
+                  <a href="#">
+                    <img class="media-object" src="${article.icon}" alt="${article.title}">
+                  </a>
+                </div>
+              </#if>
+              <div class="media-body">
+                <h4 class="media-heading">${article.title}</h4>
+                ${article.createDate?string('yyyy-MM-dd HH:mm:ss')}
+              </div>
+            </div>
+          </div>
+        </#list>
+
       </div>
     </div>
     <div class="panel panel-success" name="image" id="image">

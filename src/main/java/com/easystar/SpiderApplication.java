@@ -2,8 +2,10 @@ package com.easystar;
 
 import com.easystar.dao.ArticleDao;
 import com.easystar.dao.ImageConfigDao;
+import com.easystar.dao.ImageDao;
 import com.easystar.db.MyBatisUtils;
 import com.easystar.entity.Article;
+import com.easystar.entity.Image;
 import com.easystar.entity.ImageConfig;
 import com.easystar.pipeline.ArticlePipeline;
 import com.easystar.pipeline.ImagePipeline;
@@ -48,20 +50,57 @@ public class SpiderApplication {
         configuration.setDateTimeFormat("yyyy-MM-dd HH:mm:ss");
         ftpCli = FtpCli.createFtpCli("39.106.226.161", "wh-nb2tcpf0eofuq2yj91x", "Geobim123");
         httpUtil = new HttpUtil();
+        try {
+            ftpCli.connect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    static void modifyIndex() {
+    public static void modifyIndex() {
         try {
             Map<String, List> map = new HashMap<>();
             SqlSession sqlSession = SpiderApplication.sqlSessionFactory.openSession();
             Template template = SpiderApplication.configuration.getTemplate("index.ftl");
             ArticleDao articleDao = sqlSession.getMapper(ArticleDao.class);
-            List<Article> list = articleDao.findArticlesByLastMonth();
-            File file = new File("C://Program Files//Spider//index.html");
+            List<Article> list = articleDao.query(15);
+            ImageConfigDao imageConfigDao = sqlSession.getMapper(ImageConfigDao.class);
+            List<ImageConfig> imageConfigs = imageConfigDao.all();
+//            File file = new File("C://Program Files//Spider//index.html");
+            File file = new File("D://Spider//index.html");
             map.put("articles", list);
+            map.put("imageConfigs",imageConfigs);
             template.process(map, new FileWriter(file));
-            if (isUploadFtp)
+//            if (isUploadFtp)
                 SpiderApplication.ftpCli.uploadFileToDailyDir(file.getName(), new FileInputStream(file));
+        } catch (IOException | TemplateException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createImageHtml(){
+        try {
+        Map<String, Object> map = new HashMap<>();
+        SqlSession sqlSession = SpiderApplication.sqlSessionFactory.openSession();
+        Template template = SpiderApplication.configuration.getTemplate("image.ftl");
+            ImageConfigDao imageConfigDao = sqlSession.getMapper(ImageConfigDao.class);
+            ImageDao imageDao = sqlSession.getMapper(ImageDao.class);
+            List<ImageConfig> imageConfigs = imageConfigDao.all();
+            for(ImageConfig imageConfig : imageConfigs){
+                List<Image> list = imageDao.getImageByConfigId(imageConfig.getId());
+                map.put("list",list);
+                map.put("imageConfig",imageConfig);
+                File file = new File("D://Spider//"+imageConfig.getName()+"//index.html");
+                File fileParent = file.getParentFile();
+                if(!fileParent.exists()){
+                    fileParent.mkdirs();
+                }
+                if(!file.exists()){
+                    file.createNewFile();
+                }
+                template.process(map, new FileWriter(file));
+                SpiderApplication.ftpCli.uploadFileToDailyDir("htdocs//"+imageConfig.getName(),file.getName(), new FileInputStream(file));
+            }
         } catch (IOException | TemplateException e) {
             e.printStackTrace();
         }
@@ -108,6 +147,8 @@ public class SpiderApplication {
     }
 
     public static void main(String[] args) {
-        syncImage();
+        //syncImage();
+//        modifyIndex();
+        createImageHtml();
     }
 }

@@ -11,4 +11,6 @@ public interface ArticleDao {
     Article getArticleByTitle(String title);
 
     List<Article> findArticlesByLastMonth();
+
+    List<Article> query(int limit);
 }
