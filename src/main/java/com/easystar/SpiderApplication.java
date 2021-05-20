@@ -66,8 +66,8 @@ public class SpiderApplication {
             List<Article> list = articleDao.query(15);
             ImageConfigDao imageConfigDao = sqlSession.getMapper(ImageConfigDao.class);
             List<ImageConfig> imageConfigs = imageConfigDao.all();
-//            File file = new File("C://Program Files//Spider//index.html");
-            File file = new File("D://Spider//index.html");
+            File file = new File("C://Program Files//Spider//index.html");
+//            File file = new File("D://Spider//index.html");
             map.put("articles", list);
             map.put("imageConfigs",imageConfigs);
             template.process(map, new FileWriter(file));
@@ -111,17 +111,12 @@ public class SpiderApplication {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                try {
                     isModifyIndex = false;
-                    ftpCli.connect();
                     Spider.create(new BaiduTopProcessor()).addPipeline(new ArticlePipeline()).addUrl("http://top.baidu.com/").run();
                     if (isModifyIndex) {
                         modifyIndex();
                     }
                     ftpCli.disconnect();
-                } catch (IOException e) {
-
-                }
 
             }
         }, 1000, 1000 * 60 * 60 * 2);
@@ -148,7 +143,8 @@ public class SpiderApplication {
 
     public static void main(String[] args) {
         //syncImage();
-//        modifyIndex();
-        createImageHtml();
+        syncArtilce();
+        modifyIndex();
+//        createImageHtml();
     }
 }
