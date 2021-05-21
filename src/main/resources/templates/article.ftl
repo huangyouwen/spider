@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="referrer" content="never">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1,viewport-fit=cover">
+    <meta name="viewport"
+          content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1,viewport-fit=cover">
     <meta itemprop="dateUpdate" content="${.now?string('yyyy-MM-dd HH:mm:ss')}">
     <meta name="title" content="${article.title},今马学习，新闻">
     <meta name="keywords" content="${article.title},今马学习，新闻">
@@ -14,6 +15,7 @@
     <link rel="stylesheet" href="./../common.css"/>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="http://libs.baidu.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="./../clipboard/clipboard.min.js"></script>
 </head>
 <style>
     body {
@@ -46,13 +48,35 @@
         color: #999;
     }
 
+         /* .btn-share{
+             position: fixed;
+             top:70px;
+             right: 10px;
+         } */
+     .panel-heading {
+         text-align: right;
+     }
+
 </style>
 <script>
     $(function () {
-        var ua = navigator.userAgent.toLowerCase();
-        if(ua.match(/MicroMessenger/i) == "micromessenger") {
-            window.location.reload();
-        }
+        $("#myAlert").hide();
+        var clipboard = new ClipboardJS('.btn-share', {
+            text: function (trigger) {
+                return trigger.getAttribute('data-clipboard-text') + window.location.href;
+            }
+        });
+        clipboard.on('success', function (e) {
+            console.info('Action:', e.action);
+            console.info('Text:', e.text);
+            console.info('Trigger:', e.trigger);
+
+            e.clearSelection();
+            $("#myAlert").show();
+        });
+
+        clipboard.on('error', function (e) {
+        });
         $('body').scrollspy({target: '#bs-example-navbar-collapse-1'});
         $('[data-spy="scroll"]').each(function () {
             var $spy = $(this).scrollspy('refresh')
@@ -79,7 +103,8 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="http://www.jinma-online.cn/index.html#article">新闻 <span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="http://www.jinma-online.cn/index.html#article">新闻 <span class="sr-only">(current)</span></a>
+                    </li>
                     <li><a href="http://www.jinma-online.cn/index.html#image">图片</a></li>
                     <!-- <li><a href="#">小说</a></li> -->
                 </ul>
@@ -88,9 +113,18 @@
         </div><!-- /.container-fluid -->
     </nav>
 </header>
+<div id="myAlert" class="alert alert-success">
+    <a href="#" class="close" onclick="$('#myAlert').hide();">&times;</a>
+    <strong>复制成功，去粘贴给你的好友吧！</strong>
+</div>
 <div class="container">
     <h1>${article.title}</h1>
-    <div class="panel panel-info">${article.content}</div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <button class="btn btn-default btn-share" data-clipboard-text="${article.title}">转发</button>
+        </div>
+        <div class="panel-body"> ${article.content}</div>
+    </div>
 </div>
 <footer class="footer">
     <div class="container">
