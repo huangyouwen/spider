@@ -3,6 +3,7 @@ package com.easystar.pipeline;
 import com.easystar.SpiderApplication;
 import com.easystar.dao.ArticleDao;
 import com.easystar.entity.Article;
+import com.easystar.utils.HtmlUtil;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
@@ -38,11 +39,12 @@ public class ArticlePipeline implements Pipeline {
                 Article temp = articleDao.getArticleByTitle(title);
                 if(temp == null) {
                     SpiderApplication.isModifyIndex = true;
-                    Map<String,Article> map = new HashMap<>();
+                    Map<String,Object> map = new HashMap<>();
                     Template template = SpiderApplication.configuration.getTemplate("article.ftl");
                     map.put("article",article);
-                    File file = new File("C://Program Files//Spider//"+fileName);
-//                    File file = new File("D://Spider//"+fileName);
+                    map.put("subTitle", HtmlUtil.delHTMLTag(article.getContent()).substring(0,20));
+//                    File file = new File("C://Program Files//Spider//"+fileName);
+                    File file = new File("D://Spider//"+fileName);
                     FileWriter fileWriter = new FileWriter(file);
                     template.process(map,fileWriter);
                     fileWriter.close();

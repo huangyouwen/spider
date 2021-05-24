@@ -11,6 +11,8 @@ import com.easystar.pipeline.ArticlePipeline;
 import com.easystar.pipeline.ImagePipeline;
 import com.easystar.process.BaiduImageProcessor;
 import com.easystar.process.BaiduTopProcessor;
+import com.easystar.process.BaiduVideoProcessor;
+import com.easystar.selenium.ScrollSeleniumDownloader;
 import com.easystar.utils.FtpCli;
 import com.easystar.utils.HttpUtil;
 import freemarker.template.Configuration;
@@ -66,8 +68,8 @@ public class SpiderApplication {
             List<Article> list = articleDao.query(15);
             ImageConfigDao imageConfigDao = sqlSession.getMapper(ImageConfigDao.class);
             List<ImageConfig> imageConfigs = imageConfigDao.all();
-            File file = new File("C://Program Files//Spider//index.html");
-//            File file = new File("D://Spider//index.html");
+//            File file = new File("C://Program Files//Spider//index.html");
+            File file = new File("D://Spider//index.html");
             map.put("articles", list);
             map.put("imageConfigs",imageConfigs);
             template.process(map, new FileWriter(file));
@@ -127,6 +129,13 @@ public class SpiderApplication {
         }, 1000, 1000 * 60 * 60 * 4);
     }
 
+    public static void syncBaiduVideo(){
+        System.setProperty("selenuim_config", "D:\\Spider\\config.ini");
+        Spider.create(new BaiduVideoProcessor())
+                .addUrl("https://www.baidu.com/sf/vsearch?pd=video&tn=vsearch&lid=88f52e8e000cff71&ie=utf-8&rsv_pq=88f52e8e000cff71&wd=%E6%B9%96%E5%8D%97%E8%8A%B1%E9%BC%93%E6%88%8F&rsv_spt=5&rsv_t=f76dsnms38Huh33brAL0Eo7zfZzWIx0inbhpGAsZUWhynjCLjz3pHB4h7DZlNU0ystFl&rsv_bp=1&f=8")
+                .setDownloader(new ScrollSeleniumDownloader("D:\\Spider\\chromedriver.exe").setSleepTime(1000)).run();
+    };
+
     public static void syncImage(){
         System.setProperty("selenuim_config", "D:\\Spider\\config.ini");
         SqlSession sqlSession = SpiderApplication.sqlSessionFactory.openSession();
@@ -148,8 +157,9 @@ public class SpiderApplication {
 
     public static void main(String[] args) {
         //syncImage();
-        syncArtilce();
+//        syncArtilce();
 //        modifyIndex();
 //        createImageHtml();
+        syncBaiduVideo();
     }
 }

@@ -23,7 +23,7 @@ public class BaiduTopProcessor implements PageProcessor {
     @Override
     public void process(Page page) {
         page.addTargetRequests(page.getHtml().xpath("//ul[@id='hot-list']").links().regex(URL_TOP_BAIDU_DETAIL).all());
-        page.addTargetRequests(page.getHtml().xpath("//div[@class='c-group-wrapper']//div[@id='3']").links().regex(URL_BAIDU_LINK).all().stream().distinct().collect(Collectors.toList()));
+        page.addTargetRequests(page.getHtml().xpath("//div[@class='c-group-wrapper']//div[@id='3']//div[@class='c-row op_sp_realtime_new_group_gap op_sp_realtime_new_overflow'][1]").links().regex(URL_BAIDU_LINK).all().stream().distinct().collect(Collectors.toList()));
         page.putField("title", page.getHtml().xpath("//h2[@class='index-module_articleTitle_28fPT']/text()").toString());
         page.putField("content", page.getHtml().xpath("//div[@class='app-module_leftSection_EaCvy']").toString());
         page.putField("icon",page.getHtml().xpath("//div[@class='app-module_leftSection_EaCvy']").css("img","src").toString());

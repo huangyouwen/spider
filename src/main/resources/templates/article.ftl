@@ -63,7 +63,7 @@
         $("#myAlert").hide();
         var clipboard = new ClipboardJS('.btn-share', {
             text: function (trigger) {
-                return trigger.getAttribute('data-clipboard-text') + window.location.href;
+                return window.location.href + '  '+ trigger.getAttribute('data-clipboard-text') + '  ${subTitle}';
             }
         });
         clipboard.on('success', function (e) {
