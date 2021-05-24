@@ -7,8 +7,9 @@ import com.easystar.db.MyBatisUtils;
 import com.easystar.entity.Article;
 import com.easystar.entity.Image;
 import com.easystar.entity.ImageConfig;
-import com.easystar.pipeline.ArticlePipeline;
 import com.easystar.pipeline.ImagePipeline;
+import com.easystar.pipeline.ArticlePipeline;
+import com.easystar.pipeline.VideoPipeline;
 import com.easystar.process.BaiduImageProcessor;
 import com.easystar.process.BaiduTopProcessor;
 import com.easystar.process.BaiduVideoProcessor;
@@ -21,8 +22,6 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.downloader.selenium.SeleniumDownloader;
 
@@ -131,7 +130,7 @@ public class SpiderApplication {
 
     public static void syncBaiduVideo(){
         System.setProperty("selenuim_config", "D:\\Spider\\config.ini");
-        Spider.create(new BaiduVideoProcessor())
+        Spider.create(new BaiduVideoProcessor()).addPipeline(new VideoPipeline())
                 .addUrl("https://www.baidu.com/sf/vsearch?pd=video&tn=vsearch&lid=88f52e8e000cff71&ie=utf-8&rsv_pq=88f52e8e000cff71&wd=%E6%B9%96%E5%8D%97%E8%8A%B1%E9%BC%93%E6%88%8F&rsv_spt=5&rsv_t=f76dsnms38Huh33brAL0Eo7zfZzWIx0inbhpGAsZUWhynjCLjz3pHB4h7DZlNU0ystFl&rsv_bp=1&f=8")
                 .setDownloader(new ScrollSeleniumDownloader("D:\\Spider\\chromedriver.exe").setSleepTime(1000)).run();
     };
@@ -157,9 +156,9 @@ public class SpiderApplication {
 
     public static void main(String[] args) {
         //syncImage();
-//        syncArtilce();
+        syncArtilce();
 //        modifyIndex();
 //        createImageHtml();
-        syncBaiduVideo();
+//        syncBaiduVideo();
     }
 }

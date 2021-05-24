@@ -67,7 +67,7 @@ public class ScrollSeleniumDownloader implements Downloader, Closeable {
         }
 
         if(request.getUrl().indexOf("/sf/vsearch?pd=video") > 0) {
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 2; i++) {
                 System.out.println("休眠1s");
                 try {
                     //滚动到最底部

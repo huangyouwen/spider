@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
+import us.codecraft.webmagic.selector.Selectable;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,7 +25,7 @@ public class ArticlePipeline implements Pipeline {
     @Override
     public void process(ResultItems resultItems, Task task) {
         String title = resultItems.get("title");
-        if(StringUtils.isNotBlank(title)) {
+        if(StringUtils.isNotEmpty(title)) {
             SqlSession sqlSession = SpiderApplication.sqlSessionFactory.openSession();
             try {
                 ArticleDao articleDao = sqlSession.getMapper(ArticleDao.class);
