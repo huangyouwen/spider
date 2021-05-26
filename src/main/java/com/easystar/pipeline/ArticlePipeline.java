@@ -43,7 +43,7 @@ public class ArticlePipeline implements Pipeline {
                     Map<String,Object> map = new HashMap<>();
                     Template template = SpiderApplication.configuration.getTemplate("article.ftl");
                     map.put("article",article);
-                    map.put("subTitle", HtmlUtil.delHTMLTag(article.getContent()).substring(0,20));
+                    map.put("subTitle", HtmlUtil.delHTMLTag(article.getContent().replace("\\n","")).substring(0,20));
 //                    File file = new File("C://Program Files//Spider//"+fileName);
                     File file = new File("D://Spider//"+fileName);
                     FileWriter fileWriter = new FileWriter(file);

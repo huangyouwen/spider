@@ -90,6 +90,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#article">新闻 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#video">视频</a></li>
                     <li><a href="#image">图片</a></li>
                     <!-- <li><a href="#">小说</a></li> -->
                 </ul>
@@ -130,7 +131,36 @@
 
         </div>
     </div>
-    <div class="panel panel-success" name="image" id="image">
+    <div class="panel panel-success" name="video" id="video">
+        <div class="panel-heading">
+            <h3 class="panel-title">视频</h3>
+        </div>
+        <div class="panel-body">
+
+
+            <ul class="media-list">
+                <#list videos as video>
+
+                    <li class="media">
+                        <div class="media-left">
+                            <a href="video/${video.fileName}">
+                                <img class="media-object" src="${video.icon}"
+                                     alt="${video.title}">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading"> <a href="video/${video.fileName}">${video.title}</a></h4>
+                            ${video.createDate?string('yyyy-MM-dd HH:mm:ss')}
+                        </div>
+                    </li>
+
+                </#list>
+            </ul>
+
+
+        </div>
+    </div>
+    <div class="panel panel-info" name="image" id="image">
         <div class="panel-heading">
             <h3 class="panel-title">图片</h3>
         </div>

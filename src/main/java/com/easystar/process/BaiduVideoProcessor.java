@@ -18,7 +18,7 @@ public class BaiduVideoProcessor implements PageProcessor {
     public void process(Page page) {
         page.addTargetRequests(page.getHtml().xpath("//div[@class='video_small_intro']").links().regex(URL_TOP_BAIDU_DETAIL).all());
         page.putField("img",page.getHtml().xpath("//div[@class='c-img c-img-radius-large short-video-img']//img").css("img","src").nodes());
-        page.putField("src",page.getHtml().xpath("//video").toString());
+        page.putField("src",page.getHtml().xpath("//video").css("video","src").toString());
         page.putField("title",page.getHtml().xpath("//h1[@class='videoinfo-title']/text()").toString());
     }
 

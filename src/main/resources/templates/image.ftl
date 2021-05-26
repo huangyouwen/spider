@@ -121,7 +121,7 @@
         </div><!-- /.container-fluid -->
     </nav>
 </header>
-<div class="container">
+<div class="container-fluid">
     <ul id="viewer">
         <#list  list as image>
             <li class="list-group-item thumbnail"><img

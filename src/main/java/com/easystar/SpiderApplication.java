@@ -3,10 +3,12 @@ package com.easystar;
 import com.easystar.dao.ArticleDao;
 import com.easystar.dao.ImageConfigDao;
 import com.easystar.dao.ImageDao;
+import com.easystar.dao.VideoDao;
 import com.easystar.db.MyBatisUtils;
 import com.easystar.entity.Article;
 import com.easystar.entity.Image;
 import com.easystar.entity.ImageConfig;
+import com.easystar.entity.Video;
 import com.easystar.pipeline.ImagePipeline;
 import com.easystar.pipeline.ArticlePipeline;
 import com.easystar.pipeline.VideoPipeline;
@@ -67,10 +69,13 @@ public class SpiderApplication {
             List<Article> list = articleDao.query(15);
             ImageConfigDao imageConfigDao = sqlSession.getMapper(ImageConfigDao.class);
             List<ImageConfig> imageConfigs = imageConfigDao.all();
+            VideoDao videoDao = sqlSession.getMapper(VideoDao.class);
+            List<Video> videos = videoDao.query(30);
 //            File file = new File("C://Program Files//Spider//index.html");
             File file = new File("D://Spider//index.html");
             map.put("articles", list);
             map.put("imageConfigs",imageConfigs);
+            map.put("videos",videos);
             template.process(map, new FileWriter(file));
 //            if (isUploadFtp)
                 SpiderApplication.ftpCli.uploadFileToDailyDir(file.getName(), new FileInputStream(file));
